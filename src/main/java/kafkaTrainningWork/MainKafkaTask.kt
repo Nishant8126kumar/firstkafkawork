@@ -1,6 +1,7 @@
 package kafkaTrainningWork
 
 import Producer
+import kafkaTrainningWork.model.User
 import org.apache.kafka.clients.producer.ProducerRecord
 import java.util.concurrent.TimeUnit
 
@@ -11,19 +12,14 @@ class MainKafkaTask {
     fun producerWork()
     {
         println("Producer is  Running State")
-        var const=KafkaContant()
-        var produ =Producer()
-        var producer=produ.producer()
+        var producerObj =Producer()
+        var producer=producerObj.producer()
         try {
-            for (i in 100..150)
-            {
-                println("i=:$i")
-                var s=producer.send(ProducerRecord(const.kafkaTopic,i.toString(), "Test Message=$i"))
-                var record=s.get(5000,TimeUnit.MINUTES)
-                println(record.offset())
-                print(record.partition())
-                print(record.topic())
-            }
+            var s= producer.send(ProducerRecord(KafkaContant.kafkaTopic,getdetails()))
+            var record=s.get(5000,TimeUnit.MINUTES)
+            println(record.offset())
+            println(record.partition())
+            println(record.topic())
 
         }
         catch (e:Exception)
@@ -39,8 +35,8 @@ class MainKafkaTask {
     fun consumerWork()
     {
         println("Consumer is Running State")
-        var consum=Consumer()
-        var consumer=consum.consumer()
+        var consumerObj=Consumer()
+        var consumer=consumerObj.consumer()
         try {
             while (true)
             {
@@ -49,9 +45,9 @@ class MainKafkaTask {
                for (i in consumRecords)
                {
 
-//                   println("data=:$i")
+                   println("data=:$i")
 //                   println("offset = %d, key = %s, value = %s\n", i.offset(), i.key(), i.value());
-                   println("offset=${i.offset()},key=${i.key()},value=${i.value()}")
+//                   println("offset=${i.offset()},key=${i.key()},value=${i.value()}")
                }
             }
         }
@@ -63,14 +59,18 @@ class MainKafkaTask {
             consumer.close()
         }
     }
+    fun getdetails(): User
+    {
+        return User(21,"Ankit Sharma")
+    }
 }
 fun main()
 {
     var m1=MainKafkaTask()
-    Thread()
-    {
-       m1.producerWork()
-    }.start()
+//    Thread()
+//    {
+//       m1.producerWork()
+//    }.start()
 
 //    m1.producerWork()
 //    m1.consumerWork()

@@ -1,14 +1,14 @@
 package kafkaTrainningWork
 
 class KafkaContant {
-        val kakfkaBroker="localhost:9092"
-        val kafkaDeserializer="org.apache.kafka.common.serialization.StringDeserializer"
-        val kafkaSerializer="org.apache.kafka.common.serialization.StringSerializer"
-        val kafkaGroupId="test-group10"
-        val kafkaTopic="omshanti";
-        
-
-
+        companion object
+        {
+                val kakfkaBroker="localhost:9092"
+                val kafkaDeserializer="org.apache.kafka.common.serialization.StringDeserializer"
+                val kafkaSerializer="org.apache.kafka.common.serialization.StringSerializer"
+                val kafkaGroupId="test-group"
+                val kafkaTopic="testUser";
+        }
 }
 
 //public static final String KAFKA_BROKERS = "localhost:9092";
